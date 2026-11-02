@@ -1,0 +1,63 @@
+p
+#!/bin/bash
+
+# Marks Tracker Main Program
+
+cd "$(dirname "$0")" || exit 1
+
+source lib/functions.sh
+
+# Command-line options
+case "$1" in
+    --help)
+        show_help
+        exit 0
+        ;;
+    --backup)
+        do_backup
+        exit $?
+        ;;
+    --cron)
+        cron_task
+        exit $?
+        ;;
+esac
+
+# Main Menu
+while true
+do
+    echo ""
+    echo "================================"
+    echo "       MARKS TRACKER"
+    echo "================================"
+    echo "1. Add Student Marks"
+    echo "2. Subject-wise Average"
+    echo "3. Top 3 Students"
+    echo "4. Generate Grade Card"
+    echo "5. Show Fail Students"
+    echo "6. View Data"
+    echo "7. Backup Data"
+    echo "8. View Activity Log"
+    echo "0. Exit"
+    echo "================================"
+
+    read -p "Enter your choice: " choice
+
+    case $choice in
+        1) add_marks ;;
+        2) subject_average ;;
+        3) top_students ;;
+        4) grade_card ;;
+        5) fail_list ;;
+        6) view_data ;;
+        7) do_backup ;;
+        8) view_log ;;
+        0)
+            echo "Thank you for using Marks Tracker!"
+            exit 0
+            ;;
+        *)
+            echo "Invalid choice! Please try again."
+            ;;
+    esac
+done
